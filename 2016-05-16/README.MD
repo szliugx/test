@@ -15,4 +15,4 @@
 		seaslog.buffer_size = 100                         ;buffer中缓冲数量 默认0(不使用buffer_size) 
 		seaslog.level = 0                                       ;记录日志级别 默认0(所有日志) 
 
-		http://www.xker.com/page/e2015/03/172246.html
+[查看链接：http://www.xker.com/page/e2015/03/172246.html](http://www.xker.com/page/e2015/03/172246.html)
