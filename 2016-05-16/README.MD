@@ -16,3 +16,5 @@
 		seaslog.level = 0                                       ;记录日志级别 默认0(所有日志) 
 
 [查看链接：http://www.xker.com/page/e2015/03/172246.html](http://www.xker.com/page/e2015/03/172246.html)
+
+> 待续
