@@ -1,6 +1,6 @@
 ###微信开发中网页授权access_token与基础支持的access_token异同
   
-问题1：网页授权access_token与分享的jssdk中的access_token一样吗？
+> 问题1：网页授权access_token与分享的jssdk中的access_token一样吗？
   
   
 
@@ -9,7 +9,7 @@
 
  
 
-问题2：网页授权access_token与基础支持的access_token不同，那微信分享中的access_token，是不是基础支持的access_token 
+> 问题2：网页授权access_token与基础支持的access_token不同，那微信分享中的access_token，是不是基础支持的access_token 
   
 答：是
   
