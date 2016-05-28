@@ -1,0 +1,102 @@
+<?php
+/**
+ * 测试订单控制器
+ * User: Administrator
+ * Date: 2016/1/13
+ * Time: 14:08
+ */
+namespace console\controllers;
+
+use yii\console\Controller;
+use yii\helpers\ArrayHelper;    // 常用数组操作类
+use console\models\Ordertest;   // 订单测试Model
+
+class OrderController extends Controller
+{
+
+
+    /**
+     * 创建订单信息
+     */
+    public function actionCreate()
+	{
+        $model = new Ordertest;
+
+        // 插入
+        $model->user_id     = '';
+        $model->order_no    = 'NO12345678966666';
+        $model->save();
+
+        // 更新
+        $model = Ordertest::findOne(1);
+        $model->user_id     = '';
+        $model->order_no    = 'NO12345678966666';
+        $model->save();
+
+        /**
+         * 更新( 修改所有order_no等于aaaaaa 修改成 bbbbbb )
+         */
+        Ordertest::updateAll(['order_no'=>'aaaaaa'], ['order_no'=>'bbbbbb']);
+
+        /**
+         * 删除
+         */
+        Ordertest::deleteAll();
+        
+        # 删除id=312
+        Ordertest::deleteAll('id=:id', [':id' => 312]);
+        
+        # 删除type=2 并且 user_id in (86,72)
+		Order::deleteAll(
+            ['and', 'type = :type_id', ['not in', 'user_id', [86, 72]]],
+            [':type_id' => 2]
+        
+						);
+
+
+        /**
+         * 查询 ( like  )
+         */
+        Ordertest::find()->andFilterWhere(['like','name','洋']);
+
+        /**
+         * 查询 ( 排序  )
+         */
+        Ordertest::find()->OrderBy(['create_time'=>SORT_DESC]);
+
+        /**
+         * 主键查询
+         */
+        Ordertest::findOne(10);
+
+
+        /**
+         * 多条件查询
+         *
+         * ->one()  查询1个结果
+         * ->count()  获取数量
+         */
+        Ordertest::find()->where(['name'=>'小洋'])->andwhere(['age'=>24])->all();
+
+        /**
+         * LEFT JOIN 链表查询
+         */
+        Ordertest::find()->join('LEFT JOIN', 'student', 'student.cid=customer.id')
+            ->where('student.id=100')
+            ->andwhere('is_ok=1')
+            ->one();
+
+        /**
+         * 获取错误信息
+         */
+        $errors = $model->getFirstErrors();
+		if ($errors) {
+            $result['status'] = false;
+            $result['message'] = current($errors);
+        
+		}
+
+    
+	}
+
+}

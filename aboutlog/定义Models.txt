@@ -1,0 +1,111 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2016/1/13
+ * Time: 14:59
+ * @file Order.php
+ * @brief 订单模型
+ */
+namespace console\models;
+
+use Yii;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+
+class Ordertest extends ActiveRecord {
+
+    const STATUS_DELETED = -1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+	{
+        return '{{%onramp_order_test}}';
+    
+	}
+
+    /**
+     * 配置数据验证格式
+     * @inheritdoc 
+     */
+    public function rules()
+	{
+			return [
+            [['user_id', 'order_no'], 'required'],              // 必须有
+            [['user_id', 'order_no'], 'integer']                // 必须为正数
+//            ['name', 'trim'],                                 // 去两端空格
+//            ['name', 'string', 'length' => [2, 8]],           // 长度验证
+//            [['name', 'slug'], 'string', 'max' => 200]        // name,slug必须为字符串,最大字符200
+//            [['slug'], 'unique'],                             // 唯一
+//            [['slug'],'filter','filter'=>function($value){    // slug定义过滤器
+//                return StringHelper::generateCleanStr($value);
+//             }],
+//            [['title'],'default','value'=>function($model,$attribute){    // 默认值定义
+//                return '未命名文档';
+//             }],
+        
+					];
+    
+	}
+
+
+    /**
+     * save 前置方法
+     */
+    public function beforeSave($insert)
+	{
+        //$error = $this->validate();   // save保存数据不需要手动调用rules验证规则
+
+			if(parent::beforeSave($insert)){
+					if($insert){
+                $this->create_time = time();
+            
+					}
+            $this->update_time = time();
+            return true;
+        
+			}else{
+            return false;
+        
+			}
+    
+	}
+
+
+    /**
+     * 根据用户ID获取用户信息
+     *
+     * @param $id
+     * @return null|static
+     */
+	public static function findIdentity($id) {
+        return static::findOne($id);
+    
+	}
+
+
+
+
+    /**
+     * save 后置方法
+     */
+    public function afterSave()
+	{
+        echo "保存后置";
+    
+	}
+
+    /**
+     * delete 后置方法
+     */
+	public function afterDelete(){
+        die("删除后置");
+    
+	}
+
+
+}
