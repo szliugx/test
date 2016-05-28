@@ -1,0 +1,2 @@
+view中注册css等：css等在文件开头，js有POS_HEAD(head结束标签前)，POS_BEGIN(body开始标签后)，POS_END(body结束标签前)，POS_LOAD(JQuery标签中)
+-----------------------------
